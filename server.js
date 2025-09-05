@@ -8,6 +8,11 @@ const morgan = require('morgan');
 const session = require('express-session');
 
 const authController = require('./controllers/auth.js');
+const foodsController = require("./controllers/food.js") // Importing the foods controller in server.js
+
+// Importing Custom Middleware
+const isSignedIn = require("./middleware/is-signed-in.js")
+const passUserToView = require("./middleware/pass-user-to-view.js")
 
 const port = process.env.PORT ? process.env.PORT : '3000';
 
@@ -42,7 +47,13 @@ app.get('/vip-lounge', (req, res) => {
   }
 });
 
+
+// For this application, users must be signed in to view any of the routes associated with their pantry.
+// Therefore, isSignedIn should come above the foods controller, but not before auth.
+app.use(passUserToView)
 app.use('/auth', authController);
+app.use(isSignedIn)
+app.use("/users/:userId/foods", foodsController) // Using middleware to direct incoming requests to /users/:userId/foods to the foods controller.
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

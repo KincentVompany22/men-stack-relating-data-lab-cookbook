@@ -4,6 +4,10 @@ const bcrypt = require('bcrypt');
 
 const User = require('../models/user.js');
 
+// "/auth" is the prefix for all routes
+    // established in server.js
+
+
 router.get('/sign-up', (req, res) => {
   res.render('auth/sign-up.ejs');
 });
