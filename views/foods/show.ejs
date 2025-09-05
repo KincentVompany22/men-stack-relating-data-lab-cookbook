@@ -16,6 +16,7 @@
         <li><strong>Category:</strong> <%= pantry.category %></li>
         <li><strong>Quantity:</strong> <%= pantry.quantity %> <%= pantry.unit %> </li>
         <li><strong>Expiration Date:</strong><%= pantry.expirationDate %> </li>
+        <li><strong><a href="/users/<%= user._id %>/foods/<%= pantry._id%>/edit">Edit <%=pantry.name%> </a></strong></li>
 
     </ul>
 

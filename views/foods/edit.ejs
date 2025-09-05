@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Item</title>
+  </head>
+  <body>
+
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>Edit This Item In Your Pantry</h1>
+
+    <form action="/users/<%= user._id %>/foods/<%= pantry._id %>?_method=PUT" method = "POST">
+        
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" value="<%= pantry.name %>" />
+
+        <label for="brand">Brand:</label>
+        <input type="text" name="brand" id="brand" value="<%= pantry.brand %>" />
+
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            <option value="Grain" <%= pantry.category === "Grain" ? "selected" : "" %> >Grain </option>
+            <option value="Canned Good" <%= pantry.category === "Canned Good" ? "selected" : "" %> >Canned Good </option>
+            <option value="Spice" <%= pantry.category === "Spice" ? "selected" : "" %> >Spice</option>
+            <option value="Snack" <%= pantry.category === "Snack" ? "selected" : "" %> >Snack</option>
+            <option value="Other" <%= pantry.category === "Other" ? "selected" : "" %> >Other</option>
+        </select>
+
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity" value="<%= pantry.quantity %>" />
+
+        <label for="unit">Unit:</label>
+        <select id="unit" name="unit">
+            <option value="kgs" <%= pantry.unit === "kgs" ? "selected" : "" %> >kgs</option>
+            <option value="lbs" <%= pantry.unit === "lbs" ? "selected" : "" %> >lbs</option>
+            <option value="oz" <%= pantry.unit === "oz" ? "selected" : "" %> >oz</option>
+            <option value="cups" <%= pantry.unit === "cups" ? "selected" : "" %> >cups</option>
+            <option value="units" <%= pantry.unit === "units" ? "selected" : "" %> >units</option>
+        </select>
+
+        <label for="expirationDate">Expiration Date:</label>
+        <input type="expirationDate" name="expirationDate" id="expirationDate" value="<%= pantry.expirationDate %>" />
+
+        <button type="submit">Edit Item</button>
+
+    </form>
+
+  </body>
+</html>

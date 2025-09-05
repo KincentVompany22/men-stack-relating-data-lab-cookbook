@@ -9,6 +9,7 @@ const session = require('express-session');
 
 const authController = require('./controllers/auth.js');
 const foodsController = require("./controllers/food.js") // Importing the foods controller in server.js
+const usersController = require("./controllers/users.js") // Importing the users controller in server.js
 
 // Importing Custom Middleware
 const isSignedIn = require("./middleware/is-signed-in.js")
@@ -54,6 +55,8 @@ app.use(passUserToView)
 app.use('/auth', authController);
 app.use(isSignedIn)
 app.use("/users/:userId/foods", foodsController) // Using middleware to direct incoming requests to /users/:userId/foods to the foods controller.
+app.use("/users", usersController) // Using middleware to direct incoming requests to /users to the users controller.
+
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

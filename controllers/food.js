@@ -40,6 +40,18 @@ router.get("/:foodId", async (req, res) => {
     }
 })
 
+// Edit Food Form Display Route
+router.get("/:foodId/edit" , async (req, res) => {
+    try{ 
+        const currentUser = await User.findById(req.session.user._id)
+        const currentFood = currentUser.pantry.id(req.params.foodId)
+        res.render("foods/edit.ejs", {pantry: currentFood, })
+    } catch (error) {
+        console.log(error)
+        res.redirect("/")
+    }
+})
+
 
 
 
@@ -63,10 +75,21 @@ router.post("/", async (req, res) => {
 // PUT ROUTES
 
 // Editing Item
-router.put("/:foodId/edit" , async (req, res) => {
-    const currentUser = await User.findById(req.session.user._id)
-    currentFood = currentUser.pantry.id(req.params.itemId)
+
+router.put("/:foodId", async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.session.user._id)
+        const currentFood = currentUser.pantry.id(req.params.foodId)
+        console.log(req.body)
+        currentFood.set(req.body)
+        await currentUser.save()
+        res.redirect(`/users/${currentUser._id}/foods`)
+    } catch (error) {
+        console.log(error)
+        res.redirect("/")
+    }
 })
+
 
 
 // DELETE ROUTES
