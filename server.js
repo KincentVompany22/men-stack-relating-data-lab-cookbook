@@ -53,9 +53,10 @@ app.get('/vip-lounge', (req, res) => {
 // Therefore, isSignedIn should come above the foods controller, but not before auth.
 app.use(passUserToView)
 app.use('/auth', authController);
+app.use("/community", usersController) // This is above isSignedIn and the foodsController so that anyone can access / community routes even when not signed in
 app.use(isSignedIn)
 app.use("/users/:userId/foods", foodsController) // Using middleware to direct incoming requests to /users/:userId/foods to the foods controller.
-app.use("/users", usersController) // Using middleware to direct incoming requests to /users to the users controller.
+
 
 
 app.listen(port, () => {
